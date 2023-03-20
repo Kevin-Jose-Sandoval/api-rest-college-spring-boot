@@ -1,16 +1,11 @@
 package com.api.apirestcollegue.controllers;
 
 import com.api.apirestcollegue.dto.CourseDto;
-import com.api.apirestcollegue.dto.StudentCourseDto;
 import com.api.apirestcollegue.models.CourseModel;
 import com.api.apirestcollegue.models.InstructorModel;
-import com.api.apirestcollegue.models.StudentModel;
 import com.api.apirestcollegue.services.CourseService;
 import com.api.apirestcollegue.services.InstructorService;
-import com.api.apirestcollegue.services.StudentService;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +20,6 @@ public class CourseController {
     
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private StudentService studentService;
     
     @Autowired
     private InstructorService instructorService;

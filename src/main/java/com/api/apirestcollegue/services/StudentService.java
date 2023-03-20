@@ -8,6 +8,7 @@ import com.api.apirestcollegue.repositories.StudentRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StudentService {
@@ -18,26 +19,24 @@ public class StudentService {
     @Autowired
     private CourseRepository courseRepository;
 
+    @Transactional(readOnly = true)
     public List<StudentModel> getAllStudents() {
         return (List<StudentModel>) studentRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<ContactInfoStudentByIdDto> getContactInfoStudentById(Integer id) {
         return studentRepository.getContactInfoStudentById(id);
     }
 
+    @Transactional(readOnly = true)
     public StudentModel getStudentById(Integer id) {
         return studentRepository.findById(id).get();
     }
 
-    public Boolean addCourseToStudent(CourseModel course, StudentModel student) {
-        try {
-            courseRepository.save(course);
-            studentRepository.save(student);
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    @Transactional(rollbackFor = Exception.class)
+    public void addCourseToStudent(CourseModel course, StudentModel student) {
+        courseRepository.save(course);
+        studentRepository.save(student);
     }
 }
